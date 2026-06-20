@@ -9,8 +9,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    usuario: '',
-    password: '',
+    nombreAdmin: '',
     sector: 'Soporte'
   });
 
@@ -23,9 +22,12 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const usuarioSimulado = form.sector === 'Gerencia' ? 'gerente' : 'soporte';
+
     const exito = login({
-      usuario: form.usuario.toLowerCase(),
-      password: form.password
+      usuario: usuarioSimulado,
+      password: '1234',
+      nombreIngresado: form.nombreAdmin
     });
 
     if (exito) {
@@ -43,19 +45,8 @@ export default function Login() {
 
         <TextField
           label="Nombre del Administrador"
-          name="usuario"
-          value={form.usuario}
-          onChange={handleChange}
-          required
-          fullWidth
-          className="login-field"
-        />
-
-        <TextField
-          label="Contraseña"
-          name="password"
-          type="password"
-          value={form.password}
+          name="nombreAdmin"
+          value={form.nombreAdmin}
           onChange={handleChange}
           required
           fullWidth
@@ -75,7 +66,7 @@ export default function Login() {
           <MenuItem value="Gerencia">Gerencia</MenuItem>
         </TextField>
 
-        {error && <Alert severity="error">Usuario o Clave incorrectos (Prueba "gerente" o "soporte" / "1234")</Alert>}
+        {error && <Alert severity="error">Error al procesar la autenticación del sector.</Alert>}
 
         <Button type="submit" variant="contained" className="login-button">Ingresar</Button>
       </Box>
