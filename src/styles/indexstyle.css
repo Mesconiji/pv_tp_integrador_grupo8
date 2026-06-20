@@ -1,0 +1,48 @@
+
+.login-container {
+  margin-top: 64px;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  background-color: #ffffff;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.login-field {
+  margin-top: 8px;
+}
+
+.login-button {
+  margin-top: 16px;
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+}
+
+.lista-container {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.dashboard-container {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.detalle-container {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.nav-appbar {
+  background-color: #1976d2 !important;
+}
+
+.logout-button {
+  text-transform: none !important;
+}

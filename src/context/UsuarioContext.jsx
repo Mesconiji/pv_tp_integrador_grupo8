@@ -23,29 +23,25 @@ export const UsuarioProvider = ({ children }) => {
 
 
   const login = (credenciales) => {
-    
-
     if (credenciales.usuario === 'gerente' && credenciales.password === '1234') {
       const datosGerencia = {
-        nombre: 'Marta (Gerencia)',
+        nombre: credenciales.nombreIngresado || 'Gerencia',
         sector: 'Gerencia',
         correo: 'gerencia@empresa.com'
       };
       setAuth({ usuario: datosGerencia, estaLogeado: true });
       return true;
     }
-    
 
     if (credenciales.usuario === 'soporte' && credenciales.password === '1234') {
       const datosSoporte = {
-        nombre: 'Carlos (Soporte)',
+        nombre: credenciales.nombreIngresado || 'Soporte',
         sector: 'Soporte',
         correo: 'soporte@empresa.com'
       };
       setAuth({ usuario: datosSoporte, estaLogeado: true });
       return true;
     }
-
 
     return false;
   };
