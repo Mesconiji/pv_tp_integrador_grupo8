@@ -15,21 +15,10 @@ const DetalleCliente = () => {
    
   useEffect(() => {
     
-    const fetchCliente = async () => {
-      try {
-        setCargando(true)
-        const data = await clienteService.obtenerClientePorId(id)
-        if (!data) throw new Error('Cliente no encontrado')
-        setCliente(data)
-      } catch (err) {
-        setError('No se pudo cargar el cliente.')
-        console.error(err)
-      } finally {
-        setCargando(false)
-      }
-    }
-
-    fetchCliente()
+    clienteService.obtenerClientePorId(id)
+      .then(setCliente)
+      .finally(() => setCargando(false))
+    
   }, [id])
   
 
@@ -41,13 +30,15 @@ const DetalleCliente = () => {
     )
   }
 
-if (!cliente) {
+  if (!cliente) {
     return (
       <Box p={4}>
         <Typography color="error">No se pudo cargar el cliente.</Typography>
       </Box>
     )
   }
+
+
 // Desestructuracion de los Datos del cliente
     const {
     name: { firstname, lastname },
