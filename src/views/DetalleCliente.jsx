@@ -10,9 +10,7 @@ const DetalleCliente = () => {
 
   const [cliente, setCliente] = useState(null)
   const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState(null)
 
-   
   useEffect(() => {
     
     clienteService.obtenerClientePorId(id)
