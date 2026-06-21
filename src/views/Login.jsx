@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hook/userAuth';
 import { Container, Box, Typography, TextField, Button, MenuItem, Alert } from '@mui/material';
-import '../styles/indexstyle.css';
+import '../css/indexstyle.css';
 
 export default function Login() {
   const { login } = useAuth();
