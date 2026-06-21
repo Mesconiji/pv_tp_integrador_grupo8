@@ -63,7 +63,7 @@ const DetalleCliente = () => {
     username,
     password,
   } = cliente
-s
+
 return (
     <Box p={4}>
       <Typography variant="h4" gutterBottom>
