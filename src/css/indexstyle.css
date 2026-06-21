@@ -71,3 +71,32 @@
 .table-box {
   margin-top: 24px;
 }
+
+.detalle-loader-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.detalle-error-box {
+  padding: 32px;
+}
+
+.detalle-card {
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.detalle-section {
+  margin-top: 16px;
+}
+
+.detalle-section-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.detalle-button-box {
+  margin-top: 24px;
+}

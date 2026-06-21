@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { Button, Snackbar, Alert } from '@mui/material'
+import { Button, Snackbar, Alert, CircularProgress, Box, Typography, Container, Card, CardContent } from '@mui/material'
 import { useAuth } from '../hook/userAuth'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { CircularProgress, Box, Typography } from '@mui/material'
-import clienteService from '../services/clienteService'  
-
+import clienteService from '../services/clienteService'
 
 const DetalleCliente = () => {
   
@@ -41,7 +39,7 @@ const DetalleCliente = () => {
 
   if (cargando) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+      <Box className="detalle-loader-box">
         <CircularProgress />
       </Box>
     )
@@ -49,14 +47,13 @@ const DetalleCliente = () => {
 
   if (!cliente) {
     return (
-      <Box p={4}>
+      <Box className="detalle-error-box">
         <Typography color="error">No se pudo cargar el cliente.</Typography>
       </Box>
     )
   }
 
 
-// Desestructuracion de los Datos del cliente
     const {
     name: { firstname, lastname },
     address: { street, number, zipcode, city },
@@ -65,50 +62,55 @@ const DetalleCliente = () => {
   } = cliente
 
 return (
-    <Box p={4}>
-      <Typography variant="h4" gutterBottom>
-        Ficha del Cliente
-      </Typography>
+    <Container maxWidth="md" className="detalle-container">
+      <Card className="detalle-card">
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            Ficha del Cliente
+          </Typography>
 
-      <Typography variant="h6">{firstname} {lastname}</Typography>
+          <Typography variant="h6" gutterBottom>
+            {firstname} {lastname}
+          </Typography>
 
-      <Box mt={2}>
-        <Typography variant="subtitle1" fontWeight="bold">Dirección</Typography>
-        <Typography>Calle: {street}</Typography>
-        <Typography>Número: {number}</Typography>
-        <Typography>Código Postal: {zipcode}</Typography>
-        <Typography>Ciudad: {city}</Typography>
-      </Box>
+          <Box className="detalle-section">
+            <Typography variant="subtitle1" className="detalle-section-title">Dirección</Typography>
+            <Typography>Calle: {street}</Typography>
+            <Typography>Número: {number}</Typography>
+            <Typography>Código Postal: {zipcode}</Typography>
+            <Typography>Ciudad: {city}</Typography>
+          </Box>
 
-      <Box mt={2}>
-        <Typography variant="subtitle1" fontWeight="bold">Credenciales</Typography>
-        <Typography>Usuario: {username}</Typography>
-        <Typography>Contraseña: {password}</Typography>
-        {
-  auth?.usuario?.sector === 'Gerencia' && (
-    <Box mt={3}>
-      <Button
-        variant="contained"
-        color="error"
-        onClick={eliminarCliente}
-      >
-        Eliminar Cliente de la Base de Datos
-      </Button>
-    </Box>
-  )
-}
-      </Box>
+          <Box className="detalle-section">
+            <Typography variant="subtitle1" className="detalle-section-title">Credenciales</Typography>
+            <Typography>Usuario: {username}</Typography>
+            <Typography>Contraseña: {password}</Typography>
+            {auth?.usuario?.sector === 'Gerencia' && (
+              <Box className="detalle-button-box">
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={eliminarCliente}
+                >
+                  Eliminar Cliente de la Base de Datos
+                </Button>
+              </Box>
+            )}
+          </Box>
+        </CardContent>
+      </Card>
       <Snackbar
-  open={open}
-  autoHideDuration={3000}
-  onClose={() => setOpen(false)}
->
-  <Alert severity="success">
-    Cliente eliminado correctamente
-  </Alert>
-</Snackbar>
-    </Box>
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert severity="success">
+          Cliente eliminado correctamente
+        </Alert>
+      </Snackbar>
+    </Container>
   )
 }
+
 
 export default DetalleCliente
