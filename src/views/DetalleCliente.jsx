@@ -1,14 +1,5 @@
-// Detalle temporal
-import { Container, Card, CardContent, Typography } from '@mui/material';
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { CircularProgress, Box, Typography } from '@mui/material'
+import clienteService from '../services/clienteService'  
 
-export default function DetalleCliente() {
-  return (
-    <Container className="detalle-container">
-      <Card>
-        <CardContent>
-          <Typography variant="h5">Ficha Profunda del Cliente (GET /users/:id)</Typography>
-        </CardContent>
-      </Card>
-    </Container>
-  );
-}
