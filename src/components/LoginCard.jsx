@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Paper, TextField, Typography, Alert } from '@mui/material';
+import { Box, Button, Paper, TextField, Typography, Alert, MenuItem } from '@mui/material';
 import { useAuth } from '../hook/userAuth';
 import '../css/indexstyle.css';
 
@@ -8,7 +8,7 @@ const LoginCard = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ usuario: '', password: '' });
+  const [form, setForm] = useState({ nombre: '', password: '', sector: 'Soporte' });
   const [error, setError] = useState('');
 
   const manejarCambio = ({ target: { name, value } }) => {
@@ -19,13 +19,13 @@ const LoginCard = () => {
     e.preventDefault();
     setError('');
 
-    const exito = await login(form);
-    if (exito) {
+    const resultado = await login(form);
+    if (resultado.exito) {
       navigate('/dashboard');
       return;
     }
 
-    setError('Usuario o contraseña incorrectos. Intenta nuevamente.');
+    setError(resultado.mensaje);
   };
 
   return (
@@ -50,9 +50,9 @@ const LoginCard = () => {
           className="login-field"
           fullWidth
           required
-          label="Usuario"
-          name="usuario"
-          value={form.usuario}
+          label="Nombre"
+          name="nombre"
+          value={form.nombre}
           onChange={manejarCambio}
         />
 
@@ -66,6 +66,19 @@ const LoginCard = () => {
           value={form.password}
           onChange={manejarCambio}
         />
+
+        <TextField
+          className="login-field"
+          select
+          fullWidth
+          label="Sector"
+          name="sector"
+          value={form.sector}
+          onChange={manejarCambio}
+        >
+          <MenuItem value="Soporte">Soporte</MenuItem>
+          <MenuItem value="Gerencia">Gerencia</MenuItem>
+        </TextField>
 
         <Button type="submit" variant="contained" fullWidth className="login-button">
           Iniciar sesión

@@ -107,6 +107,12 @@
   margin-top: 24px;
 }
 
+.lista-acciones {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
 .footer {
   margin-top: 40px;
   padding: 16px;
