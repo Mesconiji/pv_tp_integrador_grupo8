@@ -13,10 +13,8 @@ const Nav = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/');
   };
-
-  if (!auth || !auth.estaLogeado) return null;
 
   return (
     <AppBar position="static" className="nav-appbar">
@@ -27,10 +25,12 @@ const Nav = () => {
           <Button color="inherit" component={RouterLink} to="/clientes">Lista de Clientes</Button>
         </Box>
 
-        <Box className="nav-group">
-          <Typography variant="body2">{auth.usuario?.nombre} — <strong>{auth.usuario?.sector}</strong></Typography>
-          <Button variant="contained" color="error" onClick={handleLogout} className="logout-button">Cerrar Sesión</Button>
-        </Box>
+        {auth?.estaLogeado && (
+          <Box className="nav-group">
+            <Typography variant="body2">{auth.usuario?.nombre} — <strong>{auth.usuario?.sector}</strong></Typography>
+            <Button variant="contained" color="error" onClick={handleLogout} className="logout-button">Cerrar Sesión</Button>
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );
