@@ -27,6 +27,7 @@ const Nav = () => {
 
         {auth?.estaLogeado && (
           <Box className="nav-group">
+            <Button color="inherit" component={RouterLink} to="/perfil">Mi Perfil</Button>
             <Typography variant="body2">{auth.usuario?.nombre} — <strong>{auth.usuario?.sector}</strong></Typography>
             <Button variant="contained" color="error" onClick={handleLogout} className="logout-button">Cerrar Sesión</Button>
           </Box>
@@ -36,4 +37,4 @@ const Nav = () => {
   );
 }
 
-export default Nav;
+export default Nav; 

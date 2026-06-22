@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../views/Dashboard';
 import ListaClientes from '../views/ListaClientes';
 import DetalleCliente from '../views/DetalleCliente';
+import PerfilUsuario from '../views/PerfilUsuario';
 import ErrorPage from '../views/ErrorPage';
 import RutaPrivada from '../components/RutaPrivada';
 
@@ -14,6 +15,7 @@ export default function AppRoutes() {
       <Route element={<RutaPrivada />}>
         <Route path="/clientes" element={<ListaClientes />} />
         <Route path="/clientes/:id" element={<DetalleCliente />} />
+        <Route path="/perfil" element={<PerfilUsuario />} />
       </Route>
 
       <Route path="*" element={<ErrorPage />} />
