@@ -115,6 +115,33 @@
   color: #ffffff;
 }
 
+.error-container {
+  margin-top: 80px;
+}
+
+.error-box {
+  text-align: center;
+}
+
+.error-title {
+  font-size: 96px;
+  font-weight: 700;
+  color: #1976d2;
+  line-height: 1;
+}
+
+.error-subtitle {
+  margin-top: 8px;
+}
+
+.error-description {
+  margin-bottom: 24px;
+}
+
+.error-button {
+  margin-top: 8px;
+}
+
 .detalle-loader-box {
   display: flex;
   justify-content: center;

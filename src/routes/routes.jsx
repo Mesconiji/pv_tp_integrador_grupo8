@@ -1,7 +1,8 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../views/Dashboard';
 import ListaClientes from '../views/ListaClientes';
 import DetalleCliente from '../views/DetalleCliente';
+import ErrorPage from '../views/ErrorPage';
 import RutaPrivada from '../components/RutaPrivada';
 
 export default function AppRoutes() {
@@ -15,7 +16,7 @@ export default function AppRoutes() {
         <Route path="/clientes/:id" element={<DetalleCliente />} />
       </Route>
 
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }

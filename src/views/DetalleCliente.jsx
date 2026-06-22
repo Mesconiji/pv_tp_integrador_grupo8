@@ -4,6 +4,7 @@ import { useAuth } from '../hook/userAuth'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import clienteService from '../services/clienteService'
+import ErrorPage from './ErrorPage'
 
 const DetalleCliente = () => {
   
@@ -46,11 +47,7 @@ const DetalleCliente = () => {
   }
 
   if (!cliente) {
-    return (
-      <Box className="detalle-error-box">
-        <Typography color="error">No se pudo cargar el cliente.</Typography>
-      </Box>
-    )
+    return <ErrorPage />
   }
 
 
