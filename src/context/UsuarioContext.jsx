@@ -23,13 +23,13 @@ export const UsuarioProvider = ({ children }) => {
   }, [auth]);
 
 
-  const login = async ({ usuario, password }) => {
+  const login = async (credenciales) => {
     try {
-      const perfil = await autorizacionesService.login(usuario, password);
+      const perfil = await autorizacionesService.login(credenciales);
       setAuth({ usuario: perfil, estaLogeado: true });
-      return true;
-    } catch {
-      return false;
+      return { exito: true, mensaje: '' };
+    } catch (error) {
+      return { exito: false, mensaje: error.message };
     }
   };
 

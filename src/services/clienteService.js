@@ -70,7 +70,7 @@ const clienteService = (() => {
     return null;
   };
 
-  // Metricas para el dashboard: total de clientes activos y eliminados
+
   const obtenerEstadisticas = async () => {
     await inicializar();
     const total = clientes.filter((c) => c.visible !== false).length;
@@ -78,11 +78,28 @@ const clienteService = (() => {
     return { total, eliminados };
   };
 
+  
+  const restaurarClientes = async () => {
+    try {
+      const respuesta = await fetch(URL_BASE);
+      if (!respuesta.ok) throw new Error('Error al obtener clientes');
+      const data = await respuesta.json();
+      clientes = data.map((cliente) => ({ ...cliente, visible: true }));
+      guardarEnStorage();
+    } catch (error) {
+      console.error(error);
+    }
+    return clientes
+      .filter((cliente) => cliente.visible !== false)
+      .map((cliente) => ({ ...cliente }));
+  };
+
   return {
     obtenerClientes,
     obtenerClientePorId,
     eliminarCliente,
     obtenerEstadisticas,
+    restaurarClientes,
   };
 
 })();

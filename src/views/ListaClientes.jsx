@@ -20,6 +20,7 @@ const ListaClientes = () => {
 
   const [clientes, setClientes] = useState([])
   const [cargando, setCargando] = useState(true)
+  const [restaurando, setRestaurando] = useState(false)
 
   useEffect(() => {
     const cargarClientes = async () => {
@@ -30,6 +31,13 @@ const ListaClientes = () => {
 
     cargarClientes()
   }, [])
+
+  const restaurarClientes = async () => {
+    setRestaurando(true)
+    const data = await clienteService.restaurarClientes()
+    setClientes(data)
+    setRestaurando(false)
+  }
 
   return (
     <Container maxWidth="lg">
@@ -82,6 +90,17 @@ const ListaClientes = () => {
               </TableBody>
             </Table>
           </TableContainer>
+
+          <Box className="lista-acciones">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={restaurarClientes}
+              disabled={restaurando}
+            >
+              {restaurando ? 'Restaurando...' : 'Restaurar Clientes (Predeterminado)'}
+            </Button>
+          </Box>
         </Box>
       )}
     </Container>

@@ -1,57 +1,44 @@
 const autorizacionesService = (() => {
 
-  // Usuarios por defecto del sistema (usuario / contraseña / perfil)
   const usuariosPorDefecto = {
     gerente: {
       password: '1234',
-      usuario: { nombre: 'Gerencia', sector: 'Gerencia', correo: 'gerencia@empresa.com' }
+      usuario: { nombre: 'Jorge', sector: 'Gerencia', correo: 'gerencia@empresa.com' }
     },
     soporte: {
       password: '1234',
-      usuario: { nombre: 'Soporte', sector: 'Soporte', correo: 'soporte@empresa.com' }
+      usuario: { nombre: 'Raul', sector: 'Soporte', correo: 'soporte@empresa.com' }
     }
   };
 
-  const objToArray = (obj) => {
-    return Object.keys(obj).map((key, idx) => {
-      const { password, usuario } = obj[key];
-      return {
-        id: idx + 1,
-        nombre: usuario?.nombre || key,
-        user: key,
-        password,
-        perfil: usuario || null
-      };
-    });
-  };
-
-  const loadUsuarios = () => {
-    const stored = localStorage.getItem('usuarios');
-    if (!stored) {
-      return objToArray(usuariosPorDefecto);
-    }
-
-    try {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) return parsed;
-      return objToArray(parsed);
-    } catch {
-      return objToArray(usuariosPorDefecto);
-    }
-  };
-
-  const login = (user, password) => {
+  const login = ({ nombre, password, sector }) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const usuarios = loadUsuarios();
-        const encontrado = usuarios.find(
-          ({ user: u, password: p }) => u === user && p === password
-        );
-        if (encontrado) {
-          resolve(encontrado.perfil || { nombre: encontrado.nombre });
-        } else {
-          reject(new Error('Usuario o contraseña incorrectos'));
+        if (!nombre?.trim() || !password?.trim() || !sector) {
+          reject(new Error('Complete todos los campos.'));
+          return;
         }
+
+        const registro = Object.values(usuariosPorDefecto).find(
+          (u) => u.usuario.sector === sector
+        );
+
+        if (!registro) {
+          reject(new Error('Sector inválido.'));
+          return;
+        }
+
+        if (nombre.trim().toLowerCase() !== registro.usuario.nombre.toLowerCase()) {
+          reject(new Error(`El nombre "${nombre}" no corresponde al sector ${sector}.`));
+          return;
+        }
+
+        if (password !== registro.password) {
+          reject(new Error('Contraseña incorrecta.'));
+          return;
+        }
+
+        resolve(registro.usuario);
       }, 800);
     });
   };
