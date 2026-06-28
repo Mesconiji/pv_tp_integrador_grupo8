@@ -35,6 +35,11 @@ const FormularioCliente = ({ onClienteCreado }) => {
     e.preventDefault();
     setError('');
     setMensaje('');
+    const errores = [];
+    if (Object.values(form).some((valor) => !valor.trim())) errores.push('Complete todos los campos.');
+    if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) errores.push('El email no es válido.');
+    if (form.phone && !/^\d+$/.test(form.phone)) errores.push('El teléfono debe ser numérico.');
+    if (errores.length > 0) { setError(errores.join(' ')); return; }
     setEnviando(true);
 
     try {

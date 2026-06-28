@@ -1,19 +1,14 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { UsuarioProvider } from './context/UsuarioContext';
-import Nav from './components/Nav';
-import Footer from './components/Footer';
-import AppRoutes from './routes/routes';
+import { Outlet } from 'react-router-dom'
+import Nav from './components/Nav'
+import Footer from './components/Footer'
+import './css/indexstyle.css'
 
-const App= () => {
-  return (
-    <UsuarioProvider>
-      <Router>
-        <Nav />
-        <AppRoutes />
-        <Footer />
-      </Router>
-    </UsuarioProvider>
-  );
-}
+const App = () => (
+  <>
+    <Nav />
+    <Outlet />
+    <Footer />
+  </>
+)
 
-export default App;
+export default App

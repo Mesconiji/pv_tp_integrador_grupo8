@@ -1,24 +1,39 @@
-import { Routes, Route } from 'react-router-dom';
-import Dashboard from '../views/Dashboard';
-import ListaClientes from '../views/ListaClientes';
-import DetalleCliente from '../views/DetalleCliente';
-import PerfilUsuario from '../views/PerfilUsuario';
-import ErrorPage from '../views/ErrorPage';
-import RutaPrivada from '../components/RutaPrivada';
+import { createBrowserRouter } from 'react-router-dom'
 
-export default function AppRoutes() {
-  return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+import App from '../App'
+import Dashboard from '../views/Dashboard'
+import ListaClientes from '../views/ListaClientes'
+import DetalleCliente from '../views/DetalleCliente'
+import PerfilUsuario from '../views/PerfilUsuario'
+import ErrorPage from '../views/ErrorPage'
+import RutaPrivada from '../components/RutaPrivada'
 
-      <Route element={<RutaPrivada />}>
-        <Route path="/clientes" element={<ListaClientes />} />
-        <Route path="/clientes/:id" element={<DetalleCliente />} />
-        <Route path="/perfil" element={<PerfilUsuario />} />
-      </Route>
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true,
+        element: <Dashboard /> },
+      { path: 'dashboard', 
+        element: <Dashboard /> },
+      {
+        element: <RutaPrivada />,
+        children: [
+          { path: 'clientes', 
+            element: <ListaClientes /> },
+          { path: 'clientes/:id',
+           element: <DetalleCliente /> },
+          { path: 'perfil', 
+            element: <PerfilUsuario /> },
+          { path: '*', 
+            element: <ErrorPage /> },
+        ],
+      },
+    ],
+  },
+  { path: '*', element: <ErrorPage /> },
+])
 
-      <Route path="*" element={<ErrorPage />} />
-    </Routes>
-  );
-}
+export default routes
